@@ -16,9 +16,15 @@ KØdo (from Estonian kodu 'home' + English 'do') is pitched as a homelife manage
 
 The idea is for it to be a convenient tool to allow for scheduling of family life and storing of key data points, such as contact information of the children's schools and doctors, child dietary requirements and likes, upcoming appointments and events etc.
 
+## Running database on your pc
+
+1. Create your .env file
+
+2. Create database on mysql; suggest using name "kodo"
+
 ## Running
 
-Installation instructions are at the very end of this readme.
+Installation instructions are at the very end of this readme. Start the app and then install.
 
 1. In the terminal run the below. Don't kill it; let it run.
 
@@ -48,7 +54,7 @@ mysql
 USE kodo;
 ```
 
-4. In a fourth terminal run the below. Don't kill it; let it run. This listen for CSS changes in input.css and rebuilds output.css;
+4. In a fourth terminal run the below, inside the Cd Client. Don't kill it; let it run. This listen for CSS changes in input.css and rebuilds output.css;
 
 ```
  npx tailwindcss -i src/index.css -o src/output.css --watch
@@ -70,7 +76,7 @@ Fin! You are done! Now get back to developing!
 
 ### Not presently-possible functionality (but possible to do)
 
-- Provide other guardians access to only speciifc views
+- Provide other guardians access to only specific views
 - Edit child details
 - Add information on your child's school, teacher, doctor, diet, etc.
 - Scheduling

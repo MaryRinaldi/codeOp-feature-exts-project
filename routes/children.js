@@ -9,6 +9,7 @@ router.post("/", async function (req, res, next) {
       firstName,
       gender,
       dob,
+      //age,
       pronouns,
       primaryFamily,
       familyAdminGuardian,
@@ -53,3 +54,6 @@ router.get("/", async function (req, res, next) {
 });
 
 module.exports = router;
+
+
+//UPDATE data
