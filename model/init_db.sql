@@ -65,16 +65,17 @@ CREATE TABLE `children`(
     `pronouns` ENUM('0', '1', '2') NOT NULL DEFAULT '0',
     `dob` CHAR(10) NOT NULL,
     `primaryFamily` MEDIUMINT NOT NULL,
-    `familyAdminGuardian` MEDIUMINT NOT NULL
+    `familyAdminGuardian` MEDIUMINT NOT NULL,
+    `importantInfo` VARCHAR(40)
 )ENGINE=INNODB AUTO_INCREMENT = 30033;
 
-INSERT INTO children(firstName, gender, dob, primaryFamily, familyAdminGuardian, pronouns)
+INSERT INTO children(firstName, sex, gender, dob, primaryFamily, familyAdminGuardian, pronouns, importantInfo)
 VALUES
-    ('Julie', '1', '2016-11-06', 20022, 10011, '1'),
-    ('Peter', '0', '2015-09-15', 20022, 10011, '0'),
-    ('Michael', '0', '2014-09-21', 20023, 10012, '0'),
-    ('Lucy', '1', '2016-01-11', 20023, 10012, '1'),
-    ('Robin', '2', '2013-05-01', 20023, 10012, '2');
+    ('Julie', '1', '1', '2016-11-06', 20022, 10011, '1', 'important'),
+    ('Peter', '2', '0', '2015-09-15', 20022, 10011, '0', 'important'),
+    ('Michael', '2', '0', '2014-09-21', 20023, 10012, '0', 'important'),
+    ('Lucy', '1', '1', '2016-01-11', 20023, 10012, '1', 'important'),
+    ('Robin', '1', '2', '2013-05-01', 20023, 10012, '2', 'important');
 
 CREATE TABLE `family_20022_members`(
     `grp` ENUM('adult', 'child') NOT NULL,
