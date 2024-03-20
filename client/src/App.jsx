@@ -6,6 +6,7 @@ import { UsersProvider } from "./contexts/UsersContext";
 import { AuthProvider } from "./contexts/AuthContext";
 import ProtectedRoute from "./pages/ProtectedRoute";
 
+
 //PAGES
 import Homepage from "./pages/Homepage";
 import Login from "./pages/Login";
@@ -25,6 +26,7 @@ import SchedulesView from "./pages/views/SchedulesView";
 import SchoolView from "./pages/views/SchoolView";
 import HobbiesView from "./pages/views/HobbiesView";
 import FamilyView from "./pages/views/FamilyView";
+import EditChildDetailsView from "./pages/views/EditChildDetailsView";
 
 function App() {
   return (
@@ -56,6 +58,7 @@ function App() {
             <Route path="school" element={<SchoolView />} />
             <Route path="health" element={<HealthView />} />
             <Route path="hobbies" element={<HobbiesView />} />
+            <Route path="edit-child-details/:id" element={<EditChildDetailsView />} />
           </Route>
 
           <Route path="*" element={<PageNotFound />} />

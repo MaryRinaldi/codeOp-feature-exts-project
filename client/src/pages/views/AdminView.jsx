@@ -1,4 +1,7 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+import { Link } from "react-router-dom";
 
 import AddHomeIcon from "@mui/icons-material/AddHome";
 import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
@@ -16,15 +19,39 @@ function filterChildrenByAge(children) {
     .sort((a, b) => a.dob.replaceAll("-", "") - b.dob.replaceAll("-", ""));
 }
 
-const AdminView = () => {
+const AdminView = () => { 
+  const navigate = useNavigate();
   const { currentFamily, currentUser, currentChildren } = useUsers();
-
+ 
   const { adminFamily } = currentUser;
 
   const [addFamilyFormIsOpen, setAddFamilyFormIsOpen] = useState(false);
   const [addChildFormIsOpen, setAddChildFormIsOpen] = useState(false);
   const [inviteGuardianFormIsOpen, setInviteGuardianFormIsOpen] =
     useState(false);
+
+    const [childFormData, setChildFormData] = useState({
+      firstName: "",
+      gender: "",
+      dob: new Date().toISOString().substring(0, 10),
+      pronouns: "",
+      importantInfo: "",
+    });
+  
+    function handleChildFormChange(e) {
+      const { name, value } = e.target;
+      setChildFormData((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }));
+    }
+  
+    function handleChildFormSubmit(e) {
+      e.preventDefault();
+      console.log("Dati del bambino da aggiornare:", childFormData);
+      // Aggiungere qui la logica per l'aggiornamento delle informazioni del bambino
+      navigate(-1);
+    }
 
   return (
     <section className="app-container">
@@ -91,18 +118,23 @@ const AdminView = () => {
           </div>
 
           {adminFamily && !currentChildren && (
-            <p className="text-lg">You haven&apos;t added any children yet.</p>
-          )}
-          {adminFamily && currentChildren && (
-            <div>
-              <h3>Children:</h3>
-              <ul className="flex flex-col gap-5 mt-5">
-                {filterChildrenByAge(currentChildren).map((child) => (
-                  <AdminPersonRow key={child.id} person={child} />
-                ))}
-              </ul>
-            </div>
-          )}
+  <p className="text-lg">You haven&apos;t added any children yet.</p>
+)}
+{adminFamily && currentChildren && (
+  <div>
+    <h3>Children:</h3>
+    <ul className="flex flex-col gap-5 mt-5">
+      {filterChildrenByAge(currentChildren).map((child) => (
+        <div key={child.id}>
+          <AdminPersonRow person={child} />
+          <button className="btn btn-primary mt-5 mb-5">
+            <Link to={`/app/edit-child-details/${child.id}`}>Edit</Link>
+          </button>
+        </div>
+      ))}
+    </ul>
+  </div>
+)}
 
           {adminFamily && currentFamily.guardians && (
             <div>

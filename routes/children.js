@@ -12,14 +12,12 @@ router.put("/:id", async function (req, res, next) {
       gender,
       dob,
       pronouns,
-      primaryFamily,
-      familyAdminGuardian,
       importantInfo
     } = details;
     await db(
-      `UPDATE users SET firstName = '${firstName}', sex = '${sex}', gender = '${gender}', dob = '${dob}', pronouns = '${pronouns}', primaryFamily = '${primaryFamily}', familyAdminGuardian = '${familyAdminGuardian}', importantInfo = '${importantInfo}' WHERE id = '${id}'`
+      `UPDATE children SET firstName = '${firstName}', sex = '${sex}', gender = '${gender}', dob = '${dob}', pronouns = '${pronouns}', importantInfo = '${importantInfo}' WHERE id = '${id}'`
     );
-    const results = await db(`SELECT * FROM users WHERE id = '${id}';`);
+    const results = await db(`SELECT * FROM children WHERE id = '${id}';`);
     res.send(results.data);
   } catch (err) {
     res.status(500).send(err.message);

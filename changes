@@ -1,6 +1,11 @@
-##Children.js
+## Children.js
 line 5 > inser PUT function
 insert "sex" and "important info" options in db
 
-##init_db.sql
+## init_db.sql
 insert "sex" and "important info" options in table
+
+## Added Edit link to AdminView to modify children details
+added new file and linked to App.jsx
+
+## Render EditChildDetailsView
