@@ -71,11 +71,11 @@ CREATE TABLE `children`(
 
 INSERT INTO children(firstName, sex, gender, dob, primaryFamily, familyAdminGuardian, pronouns, importantInfo)
 VALUES
-    ('Julie', '1', '1', '2016-11-06', 20022, 10011, '1', 'important'),
-    ('Peter', '2', '0', '2015-09-15', 20022, 10011, '0', 'important'),
-    ('Michael', '2', '0', '2014-09-21', 20023, 10012, '0', 'important'),
-    ('Lucy', '1', '1', '2016-01-11', 20023, 10012, '1', 'important'),
-    ('Robin', '1', '2', '2013-05-01', 20023, 10012, '2', 'important');
+    ('Julie', '1', '1', '2016-11-06', 20022, 10011, '1', 'Cannot eat peanuts'),
+    ('Peter', '2', '0', '2015-09-15', 20022, 10011, '0', 'Ask for his day'),
+    ('Michael', '2', '0', '2014-09-21', 20023, 10012, '0', 'Dust allergy'),
+    ('Lucy', '1', '1', '2016-01-11', 20023, 10012, '1', 'Ask for consent'),
+    ('Robin', '1', '2', '2013-05-01', 20023, 10012, '2', 'None');
 
 CREATE TABLE `family_20022_members`(
     `grp` ENUM('adult', 'child') NOT NULL,

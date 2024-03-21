@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 const EditChildDetailsView = () => {
   const { id } = useParams(); 
@@ -11,16 +11,19 @@ const EditChildDetailsView = () => {
   const [importantInfo, setImportantInfo] = useState('');
   const [error, setError] = useState(null);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`/api/children?familyAdminGuardian=${id}`);
-        const data = await response.json();
-        const child = data.find(child => child.id === id);
+        const response = await fetch(`/api/children?id=${id}`);
+        const child = await response.json();
+ 
         if (child) {
           setName(child.firstName);
           setGender(child.gender);
           setDob(child.dob);
+          setSex(child.sex);
           setPronouns(child.pronouns);
           setImportantInfo(child.importantInfo);
         }
@@ -31,9 +34,10 @@ const EditChildDetailsView = () => {
 
       }
     };
-
+    if (!id) return;
     fetchData();
   }, [id]);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -52,6 +56,7 @@ const EditChildDetailsView = () => {
           pronouns,
         }),
       });
+      returnToAdminView();
     } catch (error) {
       console.error('Error updating child details:', error);
     }
@@ -60,6 +65,8 @@ const EditChildDetailsView = () => {
   if (error) {
     return <div>Error: {error.message}</div>;
   }
+
+  const returnToAdminView = () => navigate("/app/admin");
 
   return (
     <div className="p-5 mt-10 ml-10">
@@ -78,7 +85,7 @@ const EditChildDetailsView = () => {
             onChange={(e) => setName(e.target.value)}
             className="input input-bordered w-36"
           />
-              </div>
+          </div>
      
         <label>
           Gender:
@@ -86,9 +93,9 @@ const EditChildDetailsView = () => {
             value={gender}
             onChange={(e) => setGender(e.target.value)}
           >
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-            <option value="other">Other</option>
+            <option value="0">Male</option>
+            <option value="1">Female</option>
+            <option value="2">Other</option>
           </select>
         </label>
         <label>
@@ -97,11 +104,20 @@ const EditChildDetailsView = () => {
             value={sex}
             onChange={(e) => setSex(e.target.value)}
           >
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-            <option value="other">Other</option>
+            <option value="0">Male</option>
+            <option value="1">Female</option>
+            <option value="2">Other</option>
           </select>
         </label>
+        <select
+            className="select select-bordered max-w-xs text-lg"
+            type="text"
+            id="pronouns"
+                >
+                  <option value="0">He/him</option>
+                  <option value="1">She/her</option>
+                  <option value="2">They/Them</option>
+                </select>
         <label>
           Date of Birth:
           <input
@@ -119,16 +135,22 @@ const EditChildDetailsView = () => {
             onChange={(e) => setImportantInfo(e.target.value)}
             className="input input-bordered w-36"
           />
-        
-        <button type="submit"
-            className="btn btn-ghost ml-5">Save</button>
-</div>
-</div>
+        <div className="flex gap-2">
+              <button type="submit" className="btn btn-primary ml-5">
+                Save
+              </button>
+              <button
+                type="button"
+                className="btn btn-ghost ml-5"
+                onClick={returnToAdminView}
+              >
+                Back
+              </button>
+            </div>
+          </div>
+        </div>
       </form>
     </div>
-
-
-
   );
 };
 

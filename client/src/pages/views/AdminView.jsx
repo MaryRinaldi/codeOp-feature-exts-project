@@ -48,8 +48,7 @@ const AdminView = () => {
   
     function handleChildFormSubmit(e) {
       e.preventDefault();
-      console.log("Dati del bambino da aggiornare:", childFormData);
-      // Aggiungere qui la logica per l'aggiornamento delle informazioni del bambino
+      console.log( childFormData);
       navigate(-1);
     }
 

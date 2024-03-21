@@ -12,8 +12,9 @@ router.put("/:id", async function (req, res, next) {
       gender,
       dob,
       pronouns,
-      importantInfo
+      importantInfo,
     } = details;
+    console.log(details)
     await db(
       `UPDATE children SET firstName = '${firstName}', sex = '${sex}', gender = '${gender}', dob = '${dob}', pronouns = '${pronouns}', importantInfo = '${importantInfo}' WHERE id = '${id}'`
     );
@@ -34,7 +35,7 @@ router.post("/", async function (req, res, next) {
       pronouns,
       primaryFamily,
       familyAdminGuardian,
-      importantInfo
+      importantInfo,
     } = body;
     await db(`INSERT INTO children(firstName, gender, pronouns, dob, primaryFamily, familyAdminGuardian)
     VALUES('${firstName}', '${gender}', '${pronouns}', '${dob}', '${primaryFamily}', '${familyAdminGuardian}', '${importantInfo}');`);
@@ -54,7 +55,7 @@ router.post("/", async function (req, res, next) {
     const results = await db(
       `SELECT * FROM children WHERE familyAdminGuardian = '${familyAdminGuardian}';`
     );
-
+    console.log(results.data)
     res.send(results.data);
   } catch (err) {
     res.status(500).send(err.message);
@@ -63,6 +64,7 @@ router.post("/", async function (req, res, next) {
 
 router.get("/", async function (req, res, next) {
   try {
+    if (req.query.familyAdminGuardian) {
     const id = req.query.familyAdminGuardian;
 
     const results = await db(
@@ -70,7 +72,12 @@ router.get("/", async function (req, res, next) {
     );
 
     res.send(results.data);
-  } catch (err) {
+  } else {
+    const id = req.query.id;
+    const results = await db(`SELECT * FROM children WHERE id = '${id}';`);
+    res.send(results.data[0]);
+  }
+}  catch (err) {
     res.status(500).send(err.message);
   }
 });

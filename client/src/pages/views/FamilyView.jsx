@@ -38,16 +38,23 @@ const FamilyView = () => {
       <div className="p-5 mt-10">
         <h1>Family {familyName}</h1>
         <div className="grid grid-cols-2 gap-y-10 mt-12">
-          <div>
-            <h2>Children</h2>
-            {currentChildren && (
-              <ul className="flex flex-col gap-5 mt-5">
-                {filterChildrenByAge(currentChildren).map((child) => (
-                  <AdminPersonRow key={child.id} person={child} />
-                ))}
-              </ul>
-            )}
-          </div>
+        <div>
+          <h2>Children</h2>
+          {currentChildren && (
+            <ul className="flex flex-col gap-5 mt-5">
+              {filterChildrenByAge(currentChildren).map((child) => (
+                <div key={child.id}>
+                  <AdminPersonRow person={child} />
+                  {child.importantInfo && ( 
+                    <div className="bg-gray-100 border border-gray-300 p-2 rounded">
+                      <span className="text-sm text-gray-600">(Important: {child.importantInfo})</span>
+                        </div>
+                  )}
+                </div>
+              ))}
+            </ul>
+          )}
+        </div>
           <div>
             <h2>Primary Guardians</h2>
             {guardians && primaries.length > 0 && (

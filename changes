@@ -9,3 +9,5 @@ insert "sex" and "important info" options in table
 added new file and linked to App.jsx
 
 ## Render EditChildDetailsView
+
+Why drop tables? why having 3 different mysql files in different folders
